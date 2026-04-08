@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ymeri SRL – Prototipo Sito Web</title>
+  <meta name="description" content="Prototipo realistico del nuovo sito web Ymeri SRL – assistenza infermieristica e sanitaria." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0b6fb8;
+      --primary-dark: #095d99;
+      --secondary: #29b6f6;
+      --accent: #eef7fd;
+      --ink: #102133;
+      --muted: #5f7287;
+      --line: #dbe7ef;
+      --bg: #f7fbfd;
+      --white: #ffffff;
+      --shadow: 0 20px 50px rgba(16, 33, 51, 0.12);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f9fcff 0%, #edf6fc 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, #0a5fa3, #0b6fb8);
+      color: #eef8ff;
+      font-size: 14px;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .topbar .left, .topbar .right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(20, 184, 166, 0.12);
+      color: #0f766e;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(219,231,239,0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 78px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #0b6fb8 0%, #2bb8f6 100%);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand strong {
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      font-weight: 600;
+      color: #244154;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #0b6fb8, #2bb8f6);
+      color: white;
+      box-shadow: 0 16px 30px rgba(11, 111, 184, 0.24);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--primary-dark);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 76px 0 52px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      background: rgba(43, 184, 246, 0.18);
+      top: -100px;
+      right: -120px;
+    }
+
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      background: rgba(11, 111, 184, 0.12);
+      bottom: -120px;
+      left: -100px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin: 16px 0 18px;
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 760px;
+    }
+
+    .hero p.lead {
+      max-width: 660px;
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+      max-width: 680px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(219, 231, 239, 0.9);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 25px rgba(16, 33, 51, 0.06);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(219,231,239,0.8);
+    }
+
+    .hero-card .photo {
+      min-height: 340px;
+      background:
+        linear-gradient(180deg, rgba(11,95,119,0.1), rgba(11,95,119,0.4)),
+        url('https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .hero-card .content {
+      padding: 24px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #eef7fd, #f7fbff);
+      color: var(--primary);
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    section { padding: 42px 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 10px 0 0;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .image-panel {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      min-height: 450px;
+      border: 1px solid rgba(219,231,239,0.8);
+      background:
+        linear-gradient(180deg, rgba(16,33,51,0.08), rgba(16,33,51,0.32)),
+        url('https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .content-panel {
+      background: white;
+      border-radius: 28px;
+      padding: 34px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: start;
+      background: #f8fdff;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid #e6f0f4;
+    }
+
+    .check b {
+      display: block;
+      color: var(--primary-dark);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 30px rgba(16, 33, 51, 0.07);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 40px rgba(16, 33, 51, 0.10);
+    }
+
+    .card h3 {
+      margin: 14px 0 10px;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p { margin: 0 0 18px; color: var(--muted); }
+    .card a { color: var(--primary); font-weight: 700; }
+
+    .band {
+      background: linear-gradient(135deg, #0a5fa3, #0b6fb8 55%, #2bb8f6);
+      color: white;
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .band p { color: rgba(255,255,255,.85); margin: 0; }
+    .band h3 { margin: 0 0 10px; font-size: 34px; letter-spacing: -0.03em; }
+
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .reason {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 12px 24px rgba(16,33,51,.06);
+    }
+
+    .reason h4 { margin: 14px 0 10px; font-size: 19px; }
+    .reason p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .team-grid, .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .team-card, .testimonial {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(16,33,51,.07);
+    }
+
+    .team-photo {
+      aspect-ratio: 1 / 1;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .team-body, .testimonial-body {
+      padding: 22px;
+    }
+
+    .team-body h4, .testimonial-body h4 { margin: 0 0 4px; font-size: 20px; }
+    .team-body p, .testimonial-body p { margin: 0; color: var(--muted); }
+
+    .quote {
+      font-size: 18px;
+      color: #244154;
+      margin-bottom: 16px !important;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 24px;
+    }
+
+    .contact-card,
+    .form-card {
+      background: white;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .contact-line {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid #d6e4ec;
+      border-radius: 16px;
+      padding: 15px 16px;
+      font: inherit;
+      color: var(--ink);
+      background: #fbfeff;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #57b7c8;
+      box-shadow: 0 0 0 4px rgba(87,183,200,.12);
+    }
+
+    textarea { min-height: 140px; resize: vertical; }
+
+    .success {
+      display: none;
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      font-weight: 600;
+    }
+
+    .success.show { display: block; }
+
+    footer {
+      padding: 34px 0 44px;
+      color: #536779;
+    }
+
+    .footer-box {
+      background: #0e1f30;
+      border-radius: 28px;
+      color: #d8eef4;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .footer-box strong { color: white; }
+    .footer-box small { color: #8fb3bf; }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 30;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #25D366;
+      color: white;
+      box-shadow: 0 18px 28px rgba(37,211,102,.35);
+      font-size: 30px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      width: 48px;
+      height: 48px;
+      font-size: 24px;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 32, 0.54);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 40;
+    }
+
+    .modal.show { display: flex; }
+
+    .modal-card {
+      width: min(640px, 100%);
+      background: white;
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 28px 60px rgba(16,33,51,.22);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: #f1f7fa;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    @media (max-width: 1080px) {
+      nav ul { display: none; }
+      .mobile-toggle { display: grid; }
+      .hero-grid,
+      .two-col,
+      .contact-grid,
+      .band,
+      .cards,
+      .team-grid,
+      .testimonial-grid,
+      .reason-grid,
+      .footer-box {
+        grid-template-columns: 1fr;
+      }
+      section > .container > div[style*="repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+      .check-grid,
+      .stats,
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .nav { min-height: 72px; }
+      .hero { padding-top: 48px; }
+      .hero-card .photo, .image-panel { min-height: 280px; }
+      .content-panel, .contact-card, .form-card, .card, .band, .footer-box { padding: 22px; }
+      .btn { width: 100%; justify-content: center; }
+      .hero-actions { flex-direction: column; }
+      .nav-actions .btn-secondary { display: none; }
+      .topbar-inner { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="left">
+        <span>📞 Chiamaci ora: <strong>+39 351 744 5211</strong></span>
+        <span>📍 Via Roma, 3/A – 20054 Segrate (MI)</span>
+      </div>
+      <div class="right">
+        <span>Assistenza infermieristica e sanitaria</span>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <div class="brand-mark">Y</div>
+        <div>
+          <small>Assistenza Sanitaria & Domiciliare</small>
+          <strong>Ymeri SRL</strong>
+        </div>
+      </a>
+
+      <nav>
+        <ul id="mainMenu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#chi-siamo">Chi Siamo</a></li>
+          <li><a href="#servizi">Servizi</a></li>
+          <li><a href="#perche-noi">Perché Noi</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contatti">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="https://wa.me/393517445211" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="btn btn-primary" data-open-modal>Prenota un colloquio</button>
+        <button class="mobile-toggle" id="toggleMenu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Assistenza sanitaria e domiciliare professionale a Milano e provincia</span>
+          <h1>Servizi sanitari e assistenziali affidabili, organizzati e pensati davvero per le famiglie.</h1>
+          <p class="lead">Ymeri SRL affianca anziani, persone fragili, famiglie e strutture con un modello di assistenza chiaro, umano e professionale. Il prototipo è costruito per trasmettere da subito fiducia, serietà e facilità di contatto.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-open-modal>Richiedi una consulenza</button>
+            <a class="btn btn-secondary" href="#servizi">Scopri i servizi</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>+100%</strong>
+              <span>Approccio personalizzato sulla base dei bisogni reali</span>
+            </div>
+            <div class="stat">
+              <strong>7/7</strong>
+              <span>Supporto continuativo e relazione diretta con le famiglie</span>
+            </div>
+            <div class="stat">
+              <strong>24h</strong>
+              <span>Contatto rapido e gestione organizzata delle richieste</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="photo"></div>
+          <div class="content">
+            <span class="badge">Aree di intervento</span>
+            <div class="info-list">
+              <div class="info-item">
+                <div class="icon">+</div>
+                <div>
+                  <strong>Assistenza domiciliare</strong>
+                  <div>Supporto qualificato direttamente a casa, con attenzione alla continuità assistenziale.</div>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="icon">R</div>
+                <div>
+                  <strong>Riabilitazione e sostegno</strong>
+                  <div>Percorsi di recupero e affiancamento per il benessere quotidiano della persona.</div>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="icon">H</div>
+                <div>
+                  <strong>Supporto a strutture</strong>
+                  <div>Collaborazione con ospedali, comunità, scuole e realtà socio-sanitarie.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+          <div class="card" style="padding:20px 24px;">
+            <div class="icon">✓</div>
+            <h3 style="font-size:20px; margin-top:12px;">Contatto veloce</h3>
+            <p>WhatsApp, telefono e richiesta online per rendere l'accesso al servizio semplice e immediato.</p>
+          </div>
+          <div class="card" style="padding:20px 24px;">
+            <div class="icon">❤</div>
+            <h3 style="font-size:20px; margin-top:12px;">Assistenza umana</h3>
+            <p>Il tono del sito è costruito per comunicare cura, presenza e fiducia, non freddezza istituzionale.</p>
+          </div>
+          <div class="card" style="padding:20px 24px;">
+            <div class="icon">↗</div>
+            <h3 style="font-size:20px; margin-top:12px;">Immagine più forte</h3>
+            <p>Una struttura più moderna e credibile, pensata per convertire visite in contatti reali.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chi-siamo">
+      <div class="container two-col">
+        <div class="image-panel"></div>
+        <div class="content-panel">
+          <span class="badge">Chi siamo</span>
+          <h2>Una cooperativa sociale che mette al centro la persona, non solo il servizio.</h2>
+          <p>Ymeri SRL nasce con l’obiettivo di offrire assistenza infermieristica, sanitaria e sociale non residenziale con serietà, sensibilità e visione organizzativa. Il nostro approccio unisce competenza professionale, ascolto autentico e capacità di adattare ogni intervento al contesto specifico della persona assistita.</p>
+          <p>Lavoriamo accanto a famiglie, strutture e realtà del territorio per costruire soluzioni concrete, sostenibili e umane, capaci di migliorare davvero la qualità della vita e il supporto quotidiano.</p>
+
+          <div class="check-grid">
+            <div class="check"><span>✔️</span><div><b>Approccio umano</b> Ogni percorso parte dall’ascolto e dal rispetto della persona.</div></div>
+            <div class="check"><span>✔️</span><div><b>Organizzazione chiara</b> Comunicazione semplice, pianificazione e continuità del servizio.</div></div>
+            <div class="check"><span>✔️</span><div><b>Supporto flessibile</b> Interventi personalizzati in base ai bisogni reali.</div></div>
+            <div class="check"><span>✔️</span><div><b>Rete territoriale</b> Collaborazione con famiglie, scuole, strutture e comunità.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servizi">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="badge">Servizi</span>
+            <h2>Soluzioni concrete per assistenza, supporto e riabilitazione.</h2>
+          </div>
+          <p>Abbiamo strutturato un’offerta chiara, moderna e orientata alle esigenze di famiglie, anziani, persone fragili e strutture che cercano un partner affidabile nel tempo.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="icon">🏠</div>
+            <h3>Assistenza domiciliare</h3>
+            <p>Interventi pensati per sostenere la persona nel proprio ambiente quotidiano, con attenzione al comfort, alla continuità e alla relazione con la famiglia.</p>
+            <a href="#contatti">Richiedi informazioni</a>
+          </article>
+          <article class="card">
+            <div class="icon">🩺</div>
+            <h3>Assistenza infermieristica e sanitaria</h3>
+            <p>Supporto professionale per bisogni sanitari e assistenziali, con un’impostazione seria, chiara e rispettosa delle specifiche necessità della persona.</p>
+            <a href="#contatti">Parla con noi</a>
+          </article>
+          <article class="card">
+            <div class="icon">🧠</div>
+            <h3>Riabilitazione e sostegno</h3>
+            <p>Percorsi di accompagnamento e recupero finalizzati a promuovere autonomia, benessere e qualità della vita nel medio e lungo periodo.</p>
+            <a href="#contatti">Scopri di più</a>
+          </article>
+          <article class="card">
+            <div class="icon">🏥</div>
+            <h3>Supporto in strutture sanitarie</h3>
+            <p>Collaborazione con ospedali, comunità e altre realtà assistenziali che richiedono presenza qualificata, affidabilità e capacità organizzativa.</p>
+            <a href="#contatti">Prenota un confronto</a>
+          </article>
+          <article class="card">
+            <div class="icon">👥</div>
+            <h3>Servizi per anziani e persone fragili</h3>
+            <p>Attività di sostegno quotidiano per favorire sicurezza, dignità e una migliore gestione dei bisogni assistenziali nel contesto familiare o territoriale.</p>
+            <a href="#contatti">Contattaci</a>
+          </article>
+          <article class="card">
+            <div class="icon">📘</div>
+            <h3>Consulenza e orientamento</h3>
+            <p>Un primo confronto per capire le necessità, organizzare il supporto più adatto e definire un percorso chiaro, semplice e sostenibile.</p>
+            <a href="#contatti">Richiedi una consulenza</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="band">
+          <div>
+            <h3>Serve un supporto rapido e professionale?</h3>
+            <p>Possiamo valutare insieme la situazione, capire il tipo di assistenza necessario e proporti una soluzione chiara, concreta e personalizzata.</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-start;">
+            <button class="btn btn-secondary" data-open-modal>Prenota ora</button>
+            <a class="btn btn-secondary" style="background:rgba(255,255,255,0.14); color:white; border-color:rgba(255,255,255,0.2);" href="tel:+393517445211">Chiama subito</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="perche-noi">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="badge">Perché scegliere Ymeri</span>
+            <h2>Professionalità, presenza e un modo di lavorare che ispira fiducia.</h2>
+          </div>
+          <p>Il sito è pensato per trasmettere subito ciò che il cliente deve percepire: affidabilità, umanità, organizzazione e qualità del servizio.</p>
+        </div>
+
+        <div class="reason-grid">
+          <div class="reason">
+            <div class="icon">01</div>
+            <h4>Centralità della persona</h4>
+            <p>Ogni intervento parte da bisogni concreti, contesto reale e obiettivi chiari.</p>
+          </div>
+          <div class="reason">
+            <div class="icon">02</div>
+            <h4>Affidabilità operativa</h4>
+            <p>Comunicazione semplice, organizzazione chiara e presenza costante nel percorso.</p>
+          </div>
+          <div class="reason">
+            <div class="icon">03</div>
+            <h4>Approccio multidimensionale</h4>
+            <p>Assistenza, sostegno e riabilitazione dialogano per dare risposte più complete.</p>
+          </div>
+          <div class="reason">
+            <div class="icon">04</div>
+            <h4>Immagine moderna</h4>
+            <p>Un sito professionale, credibile e orientato ai contatti, adatto a famiglie e partner.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="badge">Il nostro team</span>
+            <h2>Un gruppo multidisciplinare con attenzione clinica e sensibilità umana.</h2>
+          </div>
+          <p>Questa sezione è utile nel prototipo per far percepire struttura, serietà e presenza di una squadra organizzata. I nomi sotto possono essere sostituiti con il team reale del cliente.</p>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card">
+            <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="team-body">
+              <h4>Dott.ssa Laura Bianchi</h4>
+              <p>Coordinamento assistenziale</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1612531386530-97286d97c2d2?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="team-body">
+              <h4>Marco Rinaldi</h4>
+              <p>Responsabile servizi domiciliari</p>
+            </div>
+          </article>
+          <article class="team-card">
+            <div class="team-photo" style="background-image:url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=900&q=80');"></div>
+            <div class="team-body">
+              <h4>Dott.ssa Elena Sala</h4>
+              <p>Area supporto e riabilitazione</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="badge">Testimonianze</span>
+            <h2>Un tono credibile e vicino alle famiglie.</h2>
+          </div>
+          <p>Anche queste recensioni sono dimostrative per la presentazione del prototipo e possono essere sostituite con feedback reali una volta approvati dal cliente.</p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial">
+            <div class="testimonial-body">
+              <p class="quote">“Abbiamo trovato un supporto serio, presente e organizzato. La differenza si vede nel modo in cui ascoltano e spiegano tutto con chiarezza.”</p>
+              <h4>Famiglia G.</h4>
+              <p>Assistenza domiciliare</p>
+            </div>
+          </article>
+          <article class="testimonial">
+            <div class="testimonial-body">
+              <p class="quote">“Professionalità e umanità nello stesso servizio. Per noi era fondamentale sentirci seguiti davvero, non solo gestiti.”</p>
+              <h4>Maria R.</h4>
+              <p>Percorso di supporto e sostegno</p>
+            </div>
+          </article>
+          <article class="testimonial">
+            <div class="testimonial-body">
+              <p class="quote">“Comunicazione chiara, persone affidabili e un approccio molto più umano rispetto a tante realtà impersonali.”</p>
+              <h4>Struttura partner</h4>
+              <p>Collaborazione socio-sanitaria</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti">
+      <div class="container contact-grid">
+        <div class="contact-card">
+          <span class="badge">Contatti</span>
+          <h2>Parliamone direttamente.</h2>
+          <p>Se vuoi richiedere informazioni, proporre una collaborazione o capire quale soluzione è più adatta, contattaci. Ti rispondiamo con chiarezza e senza perdere tempo.</p>
+
+          <div class="contact-list">
+            <div class="contact-line">
+              <div class="icon">📞</div>
+              <div>
+                <strong>Telefono</strong><br>
+                <a href="tel:+393517445211">+39 351 744 5211</a>
+              </div>
+            </div>
+            <div class="contact-line">
+              <div class="icon">📍</div>
+              <div>
+                <strong>Sede legale</strong><br>
+                Via Roma, 3/A – 20054 Segrate (MI)
+              </div>
+            </div>
+            <div class="contact-line">
+              <div class="icon">🕒</div>
+              <div>
+                <strong>Disponibilità</strong><br>
+                Dal lunedì al venerdì – 09:00 / 18:00
+              </div>
+            </div>
+            <div class="contact-line">
+              <div class="icon">💬</div>
+              <div>
+                <strong>WhatsApp</strong><br>
+                Assistenza rapida per richieste informative e primo contatto
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <span class="badge">Richiedi informazioni</span>
+          <h2>Invia una richiesta</h2>
+          <form id="leadForm">
+            <div class="form-grid">
+              <input type="text" name="nome" placeholder="Nome e cognome" required>
+              <input type="tel" name="telefono" placeholder="Telefono" required>
+            </div>
+            <div class="form-grid">
+              <input type="email" name="email" placeholder="Email" required>
+              <select name="servizio" required>
+                <option value="">Seleziona un servizio</option>
+                <option>Assistenza domiciliare</option>
+                <option>Assistenza infermieristica</option>
+                <option>Riabilitazione e sostegno</option>
+                <option>Supporto in struttura sanitaria</option>
+                <option>Richiesta generale</option>
+              </select>
+            </div>
+            <textarea name="messaggio" placeholder="Descrivi brevemente la tua esigenza"></textarea>
+            <button class="btn btn-primary" type="submit">Invia richiesta</button>
+          </form>
+          <div class="success" id="successBox">Richiesta inviata correttamente. Nel sito reale questo modulo verrà collegato a email, CRM o WhatsApp.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-box">
+        <div>
+          <strong>Ymeri SRL – Cooperativa Sociale</strong><br>
+          <small>Prototipo dimostrativo in stile General Hospital, adattato in italiano per la presentazione del nuovo sito web.</small>
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid rgba(143,179,191,.22);">
+            <small>Sito prototipo creato da <strong>PC Ninja Online</strong> · WhatsApp <a href="https://wa.me/393486539089" target="_blank" rel="noopener" style="color:#ffffff; font-weight:700;">348 653 9089</a></small>
+          </div>
+        </div>
+        <div>
+          <small>© 2026 – Demo Preview</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/393517445211" target="_blank" rel="noopener" aria-label="Apri WhatsApp">💬</a>
+
+  <div class="modal" id="bookingModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal" aria-label="Chiudi">×</button>
+      <span class="badge">Prenota un colloquio</span>
+      <h2>Organizziamo un primo contatto</h2>
+      <p>Questo form è dimostrativo e serve a mostrare al cliente come potrà funzionare una prenotazione o richiesta iniziale direttamente dal sito.</p>
+      <form id="bookingForm">
+        <div class="form-grid">
+          <input type="text" name="nome" placeholder="Nome e cognome" required>
+          <input type="tel" name="telefono" placeholder="Telefono" required>
+        </div>
+        <div class="form-grid">
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="date" name="data" required>
+        </div>
+        <textarea name="note" placeholder="Scrivi la tua richiesta"></textarea>
+        <button class="btn btn-primary" type="submit">Conferma richiesta</button>
+      </form>
+      <div class="success" id="bookingSuccess">Richiesta salvata. Nel sito reale potrà essere collegata a un sistema di booking come Amelia o Fluent Forms Pro.</div>
+    </div>
+  </div>
+
+  <script>
+    const leadForm = document.getElementById('leadForm');
+    const successBox = document.getElementById('successBox');
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingSuccess = document.getElementById('bookingSuccess');
+    const modal = document.getElementById('bookingModal');
+    const closeModal = document.getElementById('closeModal');
+    const openButtons = document.querySelectorAll('[data-open-modal]');
+    const toggleMenu = document.getElementById('toggleMenu');
+    const menu = document.getElementById('mainMenu');
+
+    leadForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(leadForm).entries());
+      localStorage.setItem('ymeriLeadDemo', JSON.stringify(data));
+      successBox.classList.add('show');
+      leadForm.reset();
+      setTimeout(() => successBox.classList.remove('show'), 5000);
+    });
+
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(bookingForm).entries());
+      localStorage.setItem('ymeriBookingDemo', JSON.stringify(data));
+      bookingSuccess.classList.add('show');
+      bookingForm.reset();
+      setTimeout(() => bookingSuccess.classList.remove('show'), 4000);
+    });
+
+    openButtons.forEach(btn => btn.addEventListener('click', () => {
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+    }));
+
+    function hideModal() {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) hideModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') hideModal();
+    });
+
+    toggleMenu.addEventListener('click', () => {
+      const isOpen = menu.style.display === 'flex';
+      menu.style.display = isOpen ? 'none' : 'flex';
+      menu.style.position = 'absolute';
+      menu.style.top = '78px';
+      menu.style.right = '16px';
+      menu.style.flexDirection = 'column';
+      menu.style.background = 'white';
+      menu.style.padding = '18px';
+      menu.style.border = '1px solid #dbe7ef';
+      menu.style.borderRadius = '18px';
+      menu.style.boxShadow = '0 20px 40px rgba(16,33,51,.12)';
+      menu.style.minWidth = '220px';
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1080) menu.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
